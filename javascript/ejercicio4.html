@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4 - Lista dinámica</title>
+</head>
+<body>
+    <h1>Lista de elementos</h1>
+
+    <input type="text" id="texto" placeholder="Escribe un elemento">
+    <button id="agregar">Agregar</button>
+
+    <ul id="lista"></ul>
+
+    <script>
+        const input = document.getElementById("texto");
+        const boton = document.getElementById("agregar");
+        const lista = document.getElementById("lista");
+
+        boton.addEventListener("click", function () {
+            const texto = input.value.trim();
+
+            if (texto === "") {
+                return;
+            }
+
+            const elemento = document.createElement("li");
+            elemento.textContent = texto;
+
+            lista.appendChild(elemento);
+            input.value = "";
+        });
+    </script>
+</body>
+</html>

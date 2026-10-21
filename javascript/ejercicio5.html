@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios de API</title>
+</head>
+<body>
+    <h1>Usuarios</h1>
+    <p id="estado" role="status">Cargando usuarios...</p>
+    <ul id="usuarios"></ul>
+
+    <script>
+        async function cargarUsuarios() {
+            const estado = document.getElementById("estado");
+            const lista = document.getElementById("usuarios");
+
+            estado.textContent = "Cargando usuarios...";
+            lista.replaceChildren();
+
+            try {
+                const respuesta = await fetch(
+                    "https://jsonplaceholder.typicode.com/users"
+                );
+
+                if (!respuesta.ok) {
+                    throw new Error("Error HTTP: " + respuesta.status);
+                }
+
+                const usuarios = await respuesta.json();
+
+                usuarios.forEach(usuario => {
+                    const elemento = document.createElement("li");
+                    elemento.textContent = usuario.name;
+                    lista.appendChild(elemento);
+                });
+
+                estado.textContent = "Usuarios cargados correctamente.";
+            } catch (error) {
+                estado.textContent =
+                    "No fue posible cargar los usuarios. Intenta nuevamente.";
+                console.error("Error al consultar la API:", error);
+            }
+        }
+
+        cargarUsuarios();
+    </script>
+</body>
+</html>
